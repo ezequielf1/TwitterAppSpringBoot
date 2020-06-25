@@ -14,9 +14,26 @@ public class UserService {
     }
 
     public User createUser(User newUser) throws UsernameAlreadyInUseException {
-        if (userRepository.existsById(newUser.getUsername())) {
+        if (isUserRegistered(newUser)) {
             throw new UsernameAlreadyInUseException();
         }
         return userRepository.save(newUser);
+    }
+
+    public User updateUser(User user) throws UsernameNotRegisteredException {
+        if (isUserRegistered(user)) {
+            return updateUserRealName(user);
+        }
+        throw new UsernameNotRegisteredException();
+    }
+
+    private boolean isUserRegistered(User user) {
+        return userRepository.existsById(user.getUsername());
+    }
+
+    private User updateUserRealName(User user) {
+        User userToUpdate = userRepository.getOne(user.getUsername());
+        userToUpdate.setRealName(user.getRealName());
+        return userRepository.save(userToUpdate);
     }
 }

@@ -1,6 +1,7 @@
 package com.etermax.twitter.api;
 
 import com.etermax.twitter.domain.users.UsernameAlreadyInUseException;
+import com.etermax.twitter.domain.users.UsernameNotRegisteredException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,13 +15,12 @@ import java.util.Map;
 
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(UsernameAlreadyInUseException.class)
-    public ResponseEntity<Object> handleUsernameAlreadyInUseException
-            (UsernameAlreadyInUseException ex, WebRequest request) {
+    @ExceptionHandler({ UsernameAlreadyInUseException.class, UsernameNotRegisteredException.class })
+    public ResponseEntity<Object> handleInternalServerErrorException
+            (RuntimeException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage());
-
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
