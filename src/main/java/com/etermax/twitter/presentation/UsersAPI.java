@@ -1,7 +1,9 @@
 package com.etermax.twitter.presentation;
 
 import com.etermax.twitter.domain.users.FollowRequest;
+import com.etermax.twitter.domain.users.FollowUser;
 import com.etermax.twitter.domain.users.User;
+import com.etermax.twitter.domain.users.actions.AskFollowsAction;
 import com.etermax.twitter.domain.users.repository.UserRepository;
 import com.etermax.twitter.domain.users.actions.CreateUserAction;
 import com.etermax.twitter.domain.users.actions.FollowUserAction;
@@ -10,6 +12,8 @@ import com.etermax.twitter.infraestructure.UserRepositoryMemory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/user")

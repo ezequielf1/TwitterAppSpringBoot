@@ -13,7 +13,7 @@ public class AskFollowsAction {
         this.userRepository = userRepository;
     }
 
-    public HashMap<String, FollowUser> getFollowingsOf(User user) {
-        return user.getFollowings();
+    public HashMap<String, FollowUser> getFollowingsOf(String username) {
+        return userRepository.getUserById(username).getFollowings();
     }
 }

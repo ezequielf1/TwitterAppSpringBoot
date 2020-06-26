@@ -37,7 +37,7 @@ class AskFollowsActionTest {
     public void whenAskWhoIsAnUserFollowingThenReturnsWhoIsTheUserFollowing() {
         performFollowAction();
 
-        HashMap<String, FollowUser> followings = askFollowsAction.getFollowingsOf(FIRST_USER);
+        HashMap<String, FollowUser> followings = askFollowsAction.getFollowingsOf(FOLLOWER_USERNAME);
 
         assertEquals(1, followings.size());
         assertEquals(true, followings.containsKey(FOLLOWED_USERNAME));
