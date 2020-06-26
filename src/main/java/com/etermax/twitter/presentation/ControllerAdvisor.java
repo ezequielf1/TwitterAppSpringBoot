@@ -1,7 +1,7 @@
-package com.etermax.twitter.api;
+package com.etermax.twitter.presentation;
 
-import com.etermax.twitter.domain.users.UsernameAlreadyInUseException;
-import com.etermax.twitter.domain.users.UsernameNotRegisteredException;
+import com.etermax.twitter.domain.users.exceptions.UsernameAlreadyInUseException;
+import com.etermax.twitter.domain.users.exceptions.UsernameNotRegisteredException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
