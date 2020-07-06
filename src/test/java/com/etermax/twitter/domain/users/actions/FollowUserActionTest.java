@@ -1,14 +1,11 @@
 package com.etermax.twitter.domain.users.actions;
 
-import com.etermax.twitter.domain.users.FollowRequest;
-import com.etermax.twitter.domain.users.FollowUser;
+import com.etermax.twitter.domain.users.requests.FollowRequest;
 import com.etermax.twitter.domain.users.User;
 import com.etermax.twitter.domain.users.repository.UserRepository;
 import com.etermax.twitter.infraestructure.UserRepositoryMemory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
 
 import static com.etermax.twitter.domain.users.UserBuilder.aUser;
 import static org.junit.jupiter.api.Assertions.*;

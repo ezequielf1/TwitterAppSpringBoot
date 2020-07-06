@@ -36,8 +36,9 @@ public class FollowUserTest {
     @Test
     public void whenUserFollowsOtherUserThenReturnsUserFollowingsUpdated() throws Exception {
         createUsers();
+        String inputJson = utils.jsonContaining(FIRST_USER.getUsername(), SECOND_USER.getUsername());
 
-        MvcResult mvcResult = utils.performPatchRequest(mockMvc, FOLLOW_USER_URI, createFollowJsonRequest());
+        MvcResult mvcResult = utils.performPatchRequest(mockMvc, FOLLOW_USER_URI, inputJson);
 
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
         assertNotNull(utils
