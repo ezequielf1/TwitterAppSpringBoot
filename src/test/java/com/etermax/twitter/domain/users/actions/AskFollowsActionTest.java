@@ -1,6 +1,6 @@
 package com.etermax.twitter.domain.users.actions;
 
-import com.etermax.twitter.domain.users.FollowRequest;
+import com.etermax.twitter.domain.users.requests.FollowRequest;
 import com.etermax.twitter.domain.users.FollowUser;
 import com.etermax.twitter.domain.users.User;
 import com.etermax.twitter.domain.users.repository.UserRepository;
@@ -8,7 +8,7 @@ import com.etermax.twitter.infraestructure.UserRepositoryMemory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import static com.etermax.twitter.domain.users.UserBuilder.aUser;
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,15 +35,15 @@ class AskFollowsActionTest {
 
     @Test
     public void whenAskWhoIsAnUserFollowingThenReturnsWhoIsTheUserFollowing() {
-        performFollowAction();
+        givenFirstUserFollowSecondUser();
 
-        HashMap<String, FollowUser> followings = askFollowsAction.getFollowingsOf(FOLLOWER_USERNAME);
+        ArrayList<FollowUser> followings = askFollowsAction.getFollowingsOf(FOLLOWER_USERNAME);
 
         assertEquals(1, followings.size());
-        assertEquals(true, followings.containsKey(FOLLOWED_USERNAME));
+        assertEquals(SECOND_USER.getUsername(), followings.get(0).getUsername());
     }
 
-    private void performFollowAction() {
+    private void givenFirstUserFollowSecondUser() {
         createUserAction.createUser(FIRST_USER);
         createUserAction.createUser(SECOND_USER);
         followUserAction.follow(FOLLOW_REQUEST);

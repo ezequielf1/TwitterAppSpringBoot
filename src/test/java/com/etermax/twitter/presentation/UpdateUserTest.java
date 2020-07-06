@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class UpdateUserTest {
 
     @Autowired
-    protected MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     private final String UPDATE_USER_URI = "/user/update";
     private final String CREATE_USER_URI = "/user/create";

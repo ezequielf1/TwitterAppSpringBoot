@@ -4,6 +4,7 @@ import com.etermax.twitter.domain.users.FollowUser;
 import com.etermax.twitter.domain.users.User;
 import com.etermax.twitter.domain.users.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AskFollowsAction {
@@ -13,7 +14,8 @@ public class AskFollowsAction {
         this.userRepository = userRepository;
     }
 
-    public HashMap<String, FollowUser> getFollowingsOf(String username) {
-        return userRepository.getUserById(username).getFollowings();
+    public ArrayList<FollowUser> getFollowingsOf(String username) {
+        HashMap<String, FollowUser> followings = userRepository.getUserById(username).getFollowings();
+        return new ArrayList<FollowUser>(followings.values());
     }
 }

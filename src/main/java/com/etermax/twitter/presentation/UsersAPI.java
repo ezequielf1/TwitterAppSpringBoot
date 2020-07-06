@@ -1,6 +1,7 @@
 package com.etermax.twitter.presentation;
 
-import com.etermax.twitter.domain.users.FollowRequest;
+import com.etermax.twitter.domain.users.requests.AskFollowRequest;
+import com.etermax.twitter.domain.users.requests.FollowRequest;
 import com.etermax.twitter.domain.users.FollowUser;
 import com.etermax.twitter.domain.users.User;
 import com.etermax.twitter.domain.users.actions.AskFollowsAction;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @RestController
@@ -38,5 +40,10 @@ public class UsersAPI {
     @PatchMapping("/follow")
     public User followUser(@RequestBody FollowRequest followRequest) {
         return new FollowUserAction(userRepository).follow(followRequest);
+    }
+
+    @GetMapping("/askfollow")
+    public ArrayList<FollowUser> askFollows(@RequestBody AskFollowRequest request) {
+        return new AskFollowsAction(userRepository).getFollowingsOf(request.getUsername());
     }
 }

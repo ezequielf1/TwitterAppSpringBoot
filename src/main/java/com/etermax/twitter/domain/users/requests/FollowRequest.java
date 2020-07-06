@@ -1,4 +1,4 @@
-package com.etermax.twitter.domain.users;
+package com.etermax.twitter.domain.users.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

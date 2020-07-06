@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class CreateUserTest {
 
     @Autowired
-    protected MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     private final String createUserUri = "/user/create";
     private Utils utils = new Utils();
