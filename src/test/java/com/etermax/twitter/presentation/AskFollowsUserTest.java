@@ -66,7 +66,6 @@ public class AskFollowsUserTest {
 
     private void thenGetSecondUserAsFollowed(MvcResult mvcResult) throws Exception {
         JSONArray content = new JSONArray(mvcResult.getResponse().getContentAsString());
-        JSONObject firstUserFollowed = content.getJSONObject(0);
-        assertEquals(SECOND_USER.getUsername(), firstUserFollowed.get("username"));
+        assertEquals(SECOND_USER.getUsername(), content.get(0));
     }
 }

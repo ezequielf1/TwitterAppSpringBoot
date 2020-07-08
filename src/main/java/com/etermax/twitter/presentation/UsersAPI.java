@@ -9,13 +9,14 @@ import com.etermax.twitter.domain.users.repository.UserRepository;
 import com.etermax.twitter.domain.users.actions.CreateUserAction;
 import com.etermax.twitter.domain.users.actions.FollowUserAction;
 import com.etermax.twitter.domain.users.actions.UpdateUserAction;
-import com.etermax.twitter.infraestructure.UserRepositoryMemory;
+import com.etermax.twitter.infraestructure.repository.UserRepositoryDataBase;
+import com.etermax.twitter.infraestructure.repository.UserRepositoryMemory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping("/user")
@@ -23,7 +24,7 @@ public class UsersAPI {
     private final UserRepository userRepository;
 
     public UsersAPI() {
-        userRepository = new UserRepositoryMemory();
+        this.userRepository = new UserRepositoryMemory();
     }
 
     @PostMapping("/create")
@@ -39,11 +40,12 @@ public class UsersAPI {
 
     @PatchMapping("/follow")
     public User followUser(@RequestBody FollowRequest followRequest) {
-        return new FollowUserAction(userRepository).follow(followRequest);
+        return new FollowUserAction(userRepository)
+                .follow(followRequest.getFollowerUsername(), followRequest.getFollowedUsername());
     }
 
     @GetMapping("/askfollow")
-    public ArrayList<FollowUser> askFollows(@RequestBody AskFollowRequest request) {
+    public HashSet<String> askFollows(@RequestBody AskFollowRequest request) {
         return new AskFollowsAction(userRepository).getFollowingsOf(request.getUsername());
     }
 }

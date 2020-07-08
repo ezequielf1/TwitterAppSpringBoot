@@ -3,8 +3,7 @@ package com.etermax.twitter.domain.users.actions;
 import com.etermax.twitter.domain.users.User;
 import com.etermax.twitter.domain.users.exceptions.UsernameAlreadyInUseException;
 import com.etermax.twitter.domain.users.repository.UserRepository;
-import com.etermax.twitter.infraestructure.UserRepositoryMemory;
-import org.junit.Before;
+import com.etermax.twitter.infraestructure.repository.UserRepositoryMemory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

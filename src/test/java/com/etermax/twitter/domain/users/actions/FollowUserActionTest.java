@@ -3,12 +3,12 @@ package com.etermax.twitter.domain.users.actions;
 import com.etermax.twitter.domain.users.requests.FollowRequest;
 import com.etermax.twitter.domain.users.User;
 import com.etermax.twitter.domain.users.repository.UserRepository;
-import com.etermax.twitter.infraestructure.UserRepositoryMemory;
+import com.etermax.twitter.infraestructure.repository.UserRepositoryMemory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.etermax.twitter.domain.users.UserBuilder.aUser;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 class FollowUserActionTest {
 
@@ -19,7 +19,6 @@ class FollowUserActionTest {
     private final String FOLLOWED_USERNAME = "Stoolgear";
     private final User FIRST_USER = aUser().withUsername(FOLLOWER_USERNAME).withRealName("Pepe").build();
     private final User SECOND_USER = aUser().withUsername(FOLLOWED_USERNAME).withRealName("Pedro").build();
-    private final FollowRequest FOLLOW_REQUEST = new FollowRequest(FOLLOWER_USERNAME, FOLLOWED_USERNAME);
 
     @BeforeEach
     void setUp() {
@@ -32,8 +31,8 @@ class FollowUserActionTest {
     public void whenFollowUserThenReturnsTheUserWithTheNewFollowingAdded() {
         createUsers();
 
-        User user = followUserAction.follow(FOLLOW_REQUEST);
-        assertEquals(true, user.getFollowings().containsKey(FOLLOWED_USERNAME));
+        User user = followUserAction.follow(FOLLOWER_USERNAME, FOLLOWED_USERNAME);
+        assertEquals(true, user.getFollowings().contains(FOLLOWED_USERNAME));
     }
 
     private void createUsers() {
@@ -43,6 +42,6 @@ class FollowUserActionTest {
 
     private void performFollowAction() {
         createUsers();
-        followUserAction.follow(FOLLOW_REQUEST);
+        followUserAction.follow(FOLLOWER_USERNAME, FOLLOWED_USERNAME);
     }
 }

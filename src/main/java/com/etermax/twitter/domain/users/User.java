@@ -3,25 +3,26 @@ package com.etermax.twitter.domain.users;
 import lombok.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 @NoArgsConstructor
 @Data
 public class User {
     private String username;
     private String realName;
-    private HashMap<String, FollowUser> followings = new HashMap<>();
-    private HashMap<String, FollowUser> followers = new HashMap<>();
+    private HashSet<String> followings = new HashSet<>();
+    private HashSet<String> followers = new HashSet<>();
 
     public User(String username, String realName) {
         this.username = username;
         this.realName = realName;
     }
 
-    public void addFollowing(FollowUser followed) {
-        followings.put(followed.getUsername(), followed);
+    public void addFollowing(String username) {
+        followings.add(username);
     }
 
-    public void addFollower(FollowUser follower) {
-        followers.put(follower.getUsername(), follower);
+    public void addFollower(String username) {
+        followers.add(username);
     }
 }

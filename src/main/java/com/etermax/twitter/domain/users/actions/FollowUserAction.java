@@ -12,16 +12,7 @@ public class FollowUserAction {
         this.userRepository = userRepository;
     }
 
-    public User follow(FollowRequest followRequest) {
-        User follower = userRepository.getUserById(followRequest.getFollowerUsername());
-        User followed = userRepository.getUserById(followRequest.getFollowedUsername());
-        handleFollows(follower, followed);
-        userRepository.update(followed);
-        return userRepository.update(follower);
-    }
-
-    private void handleFollows(User follower, User followed) {
-        follower.addFollowing(FollowUser.buildFrom(followed));
-        followed.addFollower(FollowUser.buildFrom(follower));
+    public User follow(String followerUsername, String followedUsername) {
+        return userRepository.startFollow(followerUsername, followedUsername);
     }
 }

@@ -7,4 +7,5 @@ public interface UserRepository {
     boolean isUserRegistered(User user);
     User save(User user);
     User update(User user);
+    User startFollow(String followerUsername, String followedUsername);
 }

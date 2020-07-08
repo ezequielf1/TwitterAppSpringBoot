@@ -1,6 +1,7 @@
 package com.etermax.twitter.presentation;
 
 import com.etermax.twitter.domain.users.User;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.io.UnsupportedEncodingException;
 
 import static com.etermax.twitter.domain.users.UserBuilder.aUser;
 import static org.junit.Assert.assertEquals;
@@ -40,11 +43,7 @@ public class FollowUserTest {
 
         MvcResult mvcResult = utils.performPatchRequest(mockMvc, FOLLOW_USER_URI, inputJson);
 
-        assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        assertNotNull(utils
-                .createJsonFrom(mvcResult.getResponse().getContentAsString())
-                .getJSONObject("followings")
-                .get(SECOND_USER.getUsername()));
+        thenGetOKStatusAndSecondUserAsFollowed(mvcResult);
     }
 
     private String createFollowJsonRequest() throws JSONException {
@@ -57,5 +56,12 @@ public class FollowUserTest {
     private void createUsers() throws Exception {
         utils.performPostRequest(mockMvc, CREATE_USER_URI, utils.jsonContaining(FIRST_USER));
         utils.performPostRequest(mockMvc, CREATE_USER_URI, utils.jsonContaining(SECOND_USER));
+    }
+
+    private void thenGetOKStatusAndSecondUserAsFollowed(MvcResult mvcResult) throws Exception {
+        assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
+        JSONObject jsonContent = utils.createJsonFrom(mvcResult.getResponse().getContentAsString());
+        JSONArray followings = jsonContent.getJSONArray("followings");
+        assertEquals(SECOND_USER.getUsername(), followings.get(0));
     }
 }
